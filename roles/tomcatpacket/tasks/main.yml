@@ -1,12 +1,10 @@
 ---
 - name: install tomcat in yum
-  package: name=tomcat8 state=installed
-
-- name: install tomcat web apps
-  package: name=tomcat8-webapps state=installed
-
-- name: install tomcat admin webapps
-  package: name=tomcat8-admin-webapps state=installed
+  package: name={{ item  }} state=installed
+  with_items: 
+    - tomcat8
+    - tomcat8-webapps
+    - tomcat8-admin-webapps
 
 - name: Configure Tomcat users
   template: src=tomcat-users.xml.j2 dest=/etc/tomcat8/tomcat-users.xml
