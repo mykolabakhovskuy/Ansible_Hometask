@@ -4,3 +4,5 @@
 
  admin_username: admin
  admin_password: adminsecret
+
+ tomcat_version: 8.5.29

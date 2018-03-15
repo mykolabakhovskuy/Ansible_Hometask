@@ -7,37 +7,37 @@
   group: name=tomcat
 
 - name: add user tomcat
-  user: name=tomcat group=tomcat home=/opt/apache-tomcat-8.0.50 createhome=no
+  user: name=tomcat group=tomcat home=/opt/apache-tomcat-{{ tomcat_version }} createhome=no
   become: True
   become_method: sudo
 
 - name: Download Tomcat
   get_url: 
-    url: http://apache.cp.if.ua/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.tar.gz 
-    dest: /opt/apache-tomcat-8.5.29.tar.gz
+    url: http://apache.cp.if.ua/tomcat/tomcat-8/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz 
+    dest: /opt/apache-tomcat-{{ tomcat_version }}.tar.gz
     mode: 0664
    
 - name: Extract archive
-  command: chdir=/usr/share /bin/tar xzf /opt/apache-tomcat-8.5.29.tar.gz -C /opt/ creates=/opt/apache-tomcat-8.5.29
+  command: chdir=/usr/share /bin/tar xzf /opt/apache-tomcat-{{ tomcat_version }}.tar.gz -C /opt/ creates=/opt/apache-tomcat-{{ tomcat_version }}
 
 - name: change owner 
-  file: path=/opt/apache-tomcat-8.5.29 owner=tomcat group=tomcat state=directory recurse=yes
+  file: path=/opt/apache-tomcat-{{ tomcat_version }} owner=tomcat group=tomcat state=directory recurse=yes
 
 
 - name: Configure Tomcat users
-  template: src=tomcat-users.xml.j2 dest=/opt/apache-tomcat-8.5.29/conf/tomcat-users.xml
+  template: src=tomcat-users.xml.j2 dest=/opt/apache-tomcat-{{ tomcat_version }}/conf/tomcat-users.xml
   notify: restart tomcat
 
 - name: Configure Admin
   copy:
      src: context.xml
-     dest: /opt/apache-tomcat-8.5.29/webapps/manager/META-INF/context.xml
+     dest: /opt/apache-tomcat-{{ tomcat_version }}/webapps/manager/META-INF/context.xml
      mode: 0664
 
 - name: Copy War file
   copy:
     src: hello-epam.war
-    dest: /opt/apache-tomcat-8.5.29/webapps/hello-epam.war
+    dest: /opt/apache-tomcat-{{ tomcat_version }}/webapps/hello-epam.war
     mode: 0644
   notify: restart tomcat
 
