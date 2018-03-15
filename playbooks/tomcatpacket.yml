@@ -2,6 +2,6 @@
 - name: Install Tomcat
   hosts: all
   roles:
-   - role: tomcat
+   - role: tomcatpacket
      tags: tomcat
    
