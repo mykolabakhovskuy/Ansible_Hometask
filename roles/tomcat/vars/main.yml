@@ -6,3 +6,4 @@
  admin_password: adminsecret
 
  tomcat_version: 8.5.29
+ JAVA_HOME: /usr/lib/jvm/jre
