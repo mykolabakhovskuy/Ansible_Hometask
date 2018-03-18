@@ -1,7 +1,0 @@
-[web]
-instance01 ansible_host=ec2-174-129-117-153.compute-1.amazonaws.com ansible_user=ec2-user testvar=some_text
-
-[web:vars]
-#ansible_ssh_private_key_file=secrets/aws.pem
-ansible_become=true
-
