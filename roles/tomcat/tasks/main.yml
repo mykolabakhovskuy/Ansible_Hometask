@@ -18,7 +18,10 @@
     mode: 0664
    
 - name: Extract archive
-  command: chdir=/usr/share /bin/tar xzf /opt/apache-tomcat-{{ tomcat_version }}.tar.gz -C /opt/ creates=/opt/apache-tomcat-{{ tomcat_version }}
+  unarchive:
+    src: /opt/apache-tomcat-{{ tomcat_version }}.tar.gz
+    dest: /opt/apache-tomcat-{{ tomcat_version }}
+    remote_src: yes
 
 - name: change owner 
   file: path=/opt/apache-tomcat-{{ tomcat_version }} owner=tomcat group=tomcat state=directory recurse=yes
